@@ -2,6 +2,7 @@ class BlogPost < ActiveRecord::Base
 
   has_many :comments, :class_name => 'BlogComment', :dependent => :destroy
   has_and_belongs_to_many :categories, :class_name => 'BlogCategory'
+  has_and_belongs_to_many :tags, :class_name => 'BlogTag'
 
   acts_as_indexed :fields => [:title, :body]
 
@@ -40,6 +41,12 @@ class BlogPost < ActiveRecord::Base
   def category_ids=(ids)
     self.categories = ids.reject{|id| id.blank?}.collect {|c_id|
       BlogCategory.find(c_id.to_i) rescue nil
+    }.compact
+  end
+
+  def tag_ids=(ids)
+    self.tags = ids.reject{|id| id.blank?}.collect {|c_id|
+      BlogTag.find(c_id.to_i) rescue nil
     }.compact
   end
 

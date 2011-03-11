@@ -10,6 +10,12 @@ en:
           delete: Delete this category forever
         index:
           no_items_yet: 'There are no categories yet. Click "%{create}" to add your first category.'
+      tags:
+        tag:
+          edit: Edit this tag
+          delete: Delete this tag forever
+        index:
+          no_items_yet: 'There are no tags yet. Click "%{create}" to add your first tag.'
       comments:
         approved: 'The comment from "%{author}" has been approved.'
         comment:
@@ -56,6 +62,10 @@ en:
           title: Categories
           manage: Manage
           new: Create new category
+        tags:
+          title: Tags
+          manage: Manage
+          new: Create new tag
         comments:
           title: Comments
           title_with_count: 'Comments (%{new_count} new)'
@@ -86,6 +96,8 @@ en:
     shared:
       categories:
         title: Categories
+      tags:
+        title: Tags
       rss_feed:
         title: RSS Feed
         subscribe: Subscribe
@@ -98,6 +110,9 @@ en:
         none: no comments
       archives: Archives
     categories:
+      show:
+        no_posts: There are no posts here yet.
+    tags:
       show:
         no_posts: There are no posts here yet.
     posts:

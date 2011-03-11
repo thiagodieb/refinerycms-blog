@@ -43,6 +43,23 @@
       <h3><%= t('admin.blog.posts.form.published_at') %></h3>
       <%= f.datetime_select :published_at %>
     </div>
+    <div class="hemisquare">
+      <h3><%= t('admin.blog.submenu.tags.title') %></h3>
+      <ul class='blog_tags'>
+        <% @blog_tags.each do |tag| %>
+          <li>
+             <%= check_box_tag 'blog_post[tag_ids][]', tag.id,
+                               @blog_post.tags.include?(tag),
+                               :id => (id="blog_post_tag_ids_#{tag.id}") %>
+             <%= label_tag 'blog_post[tag_ids][]', tag.title,
+                           :class => 'stripped',
+                           :for => id %>
+          </li>
+        <% end %>
+      </ul>
+      <h3><%= t('admin.blog.posts.form.published_at') %></h3>
+      <%= f.datetime_select :published_at %>
+    </div>
     <div class='hemisquare right_side'>
     </div>
   </div>

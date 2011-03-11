@@ -1,0 +1,8 @@
+<h2><%= t('.title') %></h2>
+<ul id='tags'>
+  <% @tags.each do |tag| %>
+    <li<%= " class='selected'" if @tag.present? and @tag.id == tag.id %>>
+      <%= link_to "#{tag.title} (#{tag.post_count})", blog_tag_url(tag) %>
+    </li>
+  <% end %>
+</ul>

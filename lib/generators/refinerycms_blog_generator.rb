@@ -40,6 +40,17 @@ class RefinerycmsBlogGenerator < Rails::Generators::NamedBase
          Rails::Generators::GeneratedAttribute.new('blog_category_id', 'integer'),
          Rails::Generators::GeneratedAttribute.new('blog_post_id', 'integer')
        ], :id => false
+     },{
+       :table_name => 'blog_tags',
+       :attributes => [
+         Rails::Generators::GeneratedAttribute.new('title', 'string')
+       ], :id => true
+     },{
+       :table_name => 'blog_posts_blog_tags',
+       :attributes => [
+         Rails::Generators::GeneratedAttribute.new('blog_tag_id', 'integer'),
+         Rails::Generators::GeneratedAttribute.new('blog_post_id', 'integer')
+       ], :id => false
      }]
     next_migration_number = ActiveRecord::Generators::Base.next_migration_number(File.dirname(__FILE__))
     template('db/migrate/migration_number_create_singular_name.rb',

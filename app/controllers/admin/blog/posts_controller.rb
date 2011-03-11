@@ -10,5 +10,6 @@ class Admin::Blog::PostsController < Admin::BaseController
 protected
   def find_all_categories
     @blog_categories = BlogCategory.find(:all)
+    @blog_tags = BlogTag.find(:all)
   end
 end

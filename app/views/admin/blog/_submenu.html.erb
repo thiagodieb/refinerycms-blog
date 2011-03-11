@@ -78,6 +78,21 @@
     </li>
   </ul>
 
+  <ul class='collapsible_menu'>
+    <li>
+      <%= link_to t('.tags.title'), '#',
+                  :class => 'folder_icon' %>
+    </li>
+    <li>
+      <%= link_to t('.tags.manage'), admin_blog_tags_url,
+                  :class => 'folder_edit_icon' %>
+    </li>
+    <li>
+      <%= link_to t('.tags.new'), new_admin_blog_tag_url(:dialog => true, :height => 325),
+                  :class => 'folder_add_icon' %>
+    </li>
+  </ul>
+
 </nav>
 <% if Refinery.version < '0.9.9' %>
   <% content_for :head do %>

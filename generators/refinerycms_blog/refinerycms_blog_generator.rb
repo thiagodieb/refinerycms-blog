@@ -61,6 +61,17 @@ class RefinerycmsBlogGenerator < Rails::Generator::NamedBase
               Rails::Generator::GeneratedAttribute.new('blog_category_id', 'integer'),
               Rails::Generator::GeneratedAttribute.new('blog_post_id', 'integer')
             ], :id => false
+          },{
+            :table_name => 'blog_tags',
+            :attributes => [
+              Rails::Generator::GeneratedAttribute.new('title', 'string')
+            ], :id => true
+          },{
+            :table_name => 'blog_posts_blog_tags',
+            :attributes => [
+              Rails::Generator::GeneratedAttribute.new('blog_tag_id', 'integer'),
+              Rails::Generator::GeneratedAttribute.new('blog_post_id', 'integer')
+            ], :id => false
           }]
         })
     end
