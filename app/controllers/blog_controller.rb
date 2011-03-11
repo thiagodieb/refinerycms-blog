@@ -1,6 +1,6 @@
 class BlogController < ApplicationController
 
-  helper :blog_posts
+  helper :blog_posts, :blog_tags
   before_filter :find_page, :find_all_blog_categories
 
 protected
