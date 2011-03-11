@@ -28,3 +28,9 @@ Next, to install the blog plugin run:
 Finally migrate your database and you're done.
 
     rake db:migrate
+
+## TODO
+Check generator (remove - install - update - add new features)
+Check body content (post#index) when body is nil
+Add rss feed to tags and categories (comments too?)
+Merge origin master
