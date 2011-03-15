@@ -34,3 +34,4 @@ Check generator (remove - install - update - add new features)
 Check body content (post#index) when body is nil
 Add rss feed to tags and categories (comments too?)
 Merge origin master
+Add css to all tag views
