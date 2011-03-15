@@ -14,6 +14,14 @@
             <% end %>
           </aside>
         <% end %>
+        <% if (tags = post.tags).any? %>
+          <aside class='filed_in'>
+            <%= t('filed_in', :scope => 'blog.posts.show') %>
+            <% tags.each_with_index do |tag, index| %>
+              <%= link_to tag.title, blog_tag_url(tag) -%><%= ',' if index < ((tags.length) - 1) %>
+            <% end %>
+          </aside>
+        <% end %>
       </details>
     </header>
     <section class='clearfix'>

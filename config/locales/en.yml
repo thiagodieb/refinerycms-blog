@@ -115,6 +115,7 @@ en:
     tags:
       show:
         no_posts: There are no posts here yet.
+        posts_under: '%{count_posts} posts @ tag %{tag_title}.'
     posts:
       post:
         filed_in: Filed in

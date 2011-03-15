@@ -8,7 +8,7 @@ module BlogTagsHelper
     BlogTag.build_cloud_map.each do |total, tag_list|
       size = ((distribuition * (total - min)) / (max - min)).ceil
       tag_list.each do |tag|
-        html += "<#{html_element} class=\"cloud_size_#{size}\">#{tag.title}</#{html_element}>"
+        html += "<#{html_element} class=\"cloud_size_#{size}\">#{link_to(tag.title, blog_tag_url(tag))}</#{html_element}>"
       end
     end
     html
