@@ -1,15 +1,17 @@
 Gem::Specification.new do |s|
   s.name              = %q{refinerycms-blog}
-  s.version           = %q{1.2}
+  s.version           = %q{1.4}
   s.description       = %q{A really straightforward open source Ruby on Rails blog engine designed for integration with RefineryCMS.}
-  s.date              = %q{2011-01-11}
+  s.date              = %q{2011-03-28}
   s.summary           = %q{Ruby on Rails blogging engine for RefineryCMS.}
   s.email             = %q{info@refinerycms.com}
   s.homepage          = %q{http://refinerycms.com}
   s.authors           = %w(Resolve\ Digital Neoteric\ Design)
   s.require_paths     = %w(lib)
-  s.add_dependency    'refinerycms',  '>= 0.9.8'
+
+  s.add_dependency    'refinerycms-core',  '>= 0.9.9.1'
   s.add_dependency    'filters_spam', '~> 0.2'
+  s.add_dependency    'acts-as-taggable-on'
 
   s.files             = %w(
     app
@@ -35,6 +37,7 @@ Gem::Specification.new do |s|
     app/models/blog_category.rb
     app/models/blog_comment.rb
     app/models/blog_post.rb
+    app/models/categorization.rb
     app/views
     app/views/admin
     app/views/admin/blog
@@ -60,6 +63,7 @@ Gem::Specification.new do |s|
     app/views/admin/blog/posts/edit.html.erb
     app/views/admin/blog/posts/index.html.erb
     app/views/admin/blog/posts/new.html.erb
+    app/views/admin/blog/posts/uncategorized.html.erb
     app/views/admin/blog/settings
     app/views/admin/blog/settings/notification_recipients.html.erb
     app/views/blog
@@ -75,48 +79,54 @@ Gem::Specification.new do |s|
     app/views/blog/posts/index.html.erb
     app/views/blog/posts/index.rss.builder
     app/views/blog/posts/show.html.erb
+    app/views/blog/posts/tagged.html.erb
     app/views/blog/shared
     app/views/blog/shared/_categories.html.erb
     app/views/blog/shared/_post.html.erb
     app/views/blog/shared/_posts.html.erb
     app/views/blog/shared/_rss_feed.html.erb
+    app/views/blog/shared/_tags.html.erb
+    changelog.md
     config
     config/locales
+    config/locales/cs.yml
+    config/locales/de.yml
     config/locales/en.yml
     config/locales/es.yml
+    config/locales/fr.yml
     config/locales/it.yml
     config/locales/nb.yml
     config/locales/nl.yml
+    config/locales/pl.yml
     config/locales/pt-BR.yml
+    config/locales/ru.yml
+    config/locales/sk.yml
+    config/locales/zh-CN.yml
     config/routes.rb
+    db
+    db/migrate
+    db/migrate/1_create_blog_structure.rb
+    db/migrate/2_add_user_id_to_blog_posts.rb
+    db/migrate/3_acts_as_taggable_on_migration.rb
+    db/seeds
+    db/seeds/refinerycms_blog.rb
     features
+    features/authors.feature
     features/support
     features/support/factories
     features/support/factories/blog_categories.rb
     features/support/factories/blog_comments.rb
     features/support/factories/blog_posts.rb
     features/support/paths.rb
-    Gemfile
-    Gemfile.lock
-    generators
-    generators/refinerycms_blog
-    generators/refinerycms_blog/refinerycms_blog_generator.rb
-    generators/refinerycms_blog/templates
-    generators/refinerycms_blog/templates/db
-    generators/refinerycms_blog/templates/db/migrate
-    generators/refinerycms_blog/templates/db/migrate/migration.rb
-    generators/refinerycms_blog/templates/db/seeds
-    generators/refinerycms_blog/templates/db/seeds/seed.rb
+    features/support/step_definitions
+    features/support/step_definitions/authors_steps.rb
+    features/support/step_definitions/tags_steps.rb
+    features/tags.feature
     lib
     lib/gemspec.rb
     lib/generators
     lib/generators/refinerycms_blog
     lib/generators/refinerycms_blog/templates
-    lib/generators/refinerycms_blog/templates/db
-    lib/generators/refinerycms_blog/templates/db/migrate
-    lib/generators/refinerycms_blog/templates/db/migrate/migration_number_create_singular_name.rb
-    lib/generators/refinerycms_blog/templates/db/seeds
-    lib/generators/refinerycms_blog/templates/db/seeds/seed.rb
     lib/generators/refinerycms_blog_generator.rb
     lib/refinerycms-blog.rb
     public
@@ -145,8 +155,6 @@ Gem::Specification.new do |s|
     public/stylesheets/refinery
     public/stylesheets/refinery/refinerycms-blog.css
     public/stylesheets/refinerycms-blog.css
-    rails
-    rails/init.rb
     readme.md
     spec
     spec/models

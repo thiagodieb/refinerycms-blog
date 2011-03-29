@@ -9,12 +9,15 @@ Refinery::Application.routes.draw do
     match 'tags/:id', :to => 'tags#show', :as => 'blog_tag'
     match ':id/comments', :to => 'posts#comment', :as => 'blog_post_blog_comments'
     get 'archive/:year(/:month)', :to => 'posts#archive', :as => 'archive_blog_posts'
+    get 'tagged/:tag_name' => 'posts#tagged', :as => 'tagged_posts'
   end
 
   scope(:path => 'refinery', :as => 'admin', :module => 'admin') do
     scope(:path => 'blog', :as => 'blog', :module => 'blog') do
       root :to => 'posts#index'
-      resources :posts
+      resources :posts do
+        get 'uncategorized', :on => :collection
+      end
 
       resources :categories
 
@@ -37,6 +40,7 @@ Refinery::Application.routes.draw do
           post :notification_recipients
 
           get :moderation
+          get :comments
         end
       end
     end

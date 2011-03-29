@@ -1,8 +1,17 @@
-class BlogPost < ActiveRecord::Base
+require 'acts-as-taggable-on'
 
+class BlogPost < ActiveRecord::Base
+  
+  default_scope :order => 'published_at DESC'
+  #.first & .last will be reversed -- consider a with_exclusive_scope on these?
+      
+  belongs_to :author, :class_name => 'User', :foreign_key => :user_id
+  
   has_many :comments, :class_name => 'BlogComment', :dependent => :destroy
-  has_and_belongs_to_many :categories, :class_name => 'BlogCategory'
-  has_and_belongs_to_many :tags, :class_name => 'BlogTag'
+  acts_as_taggable
+  
+  has_many :categorizations
+  has_many :categories, :through => :categorizations, :source => :blog_category
 
   acts_as_indexed :fields => [:title, :body]
 
@@ -12,26 +21,26 @@ class BlogPost < ActiveRecord::Base
   has_friendly_id :title, :use_slug => true
 
   scope :by_archive, lambda { |archive_date|
-    where(['published_at between ? and ?', archive_date.beginning_of_month, archive_date.end_of_month]).order("published_at DESC")
+    where(['published_at between ? and ?', archive_date.beginning_of_month, archive_date.end_of_month])
   }
   
   scope :by_year, lambda { |archive_year|
-    where(['published_at between ? and ?', archive_year.beginning_of_year, archive_year.end_of_year]).order("published_at DESC")
+    where(['published_at between ? and ?', archive_year.beginning_of_year, archive_year.end_of_year])
   }
 
-  scope :all_previous, where(['published_at <= ?', Time.now.beginning_of_month]).order("published_at DESC")
+  scope :all_previous, lambda { where(['published_at <= ?', Time.now.beginning_of_month]) }
 
-  scope :live, lambda { where( "published_at < ? and draft = ?", Time.now, false).order("published_at DESC") }
+  scope :live, lambda { where( "published_at <= ? and draft = ?", Time.now, false) }
 
-  scope :previous, lambda { |i| where(["published_at < ? and draft = ?", i.published_at, false]).order("published_at DESC").limit(1) }
-  scope :next, lambda { |i| where(["published_at > ? and draft = ?", i.published_at, false]).order("published_at ASC").limit(1) }
-
+  scope :previous, lambda { |i| where(["published_at < ? and draft = ?", i.published_at, false]).limit(1) }
+  # next is now in << self
+  
   def next
-    self.class.next(self).first
+    BlogPost.next(self).first
   end
 
   def prev
-    self.class.previous(self).first
+    BlogPost.previous(self).first
   end
 
   def live?
@@ -44,24 +53,28 @@ class BlogPost < ActiveRecord::Base
     }.compact
   end
 
-  def tag_ids=(ids)
-    self.tags = ids.reject{|id| id.blank?}.collect {|c_id|
-      BlogTag.find(c_id.to_i) rescue nil
-    }.compact
-  end
-
   class << self
+    def next current_record
+      self.send(:with_exclusive_scope) do
+        where(["published_at > ? and draft = ?", current_record.published_at, false]).order("published_at ASC")
+      end
+    end
+    
     def comments_allowed?
       RefinerySetting.find_or_set(:comments_allowed, true, {
         :scoping => 'blog'
       })
+    end
+    
+    def uncategorized
+      BlogPost.live.reject { |p| p.categories.any? }
     end
   end
 
   module ShareThis
     DEFAULT_KEY = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 
-    class << self
+    class << self      
       def key
         RefinerySetting.find_or_set(:share_this_key, BlogPost::ShareThis::DEFAULT_KEY, {
           :scoping => 'blog'

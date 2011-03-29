@@ -1,8 +1,4 @@
-if defined?(Bundler) and !defined?(FiltersSpam)
-  # this will tell the user what to do
-  load(File.expand_path('../../Gemfile', __FILE__))
-  require 'filters_spam'
-end
+require 'filters_spam'
 
 module Refinery
   module Blog
@@ -42,7 +38,7 @@ module Refinery
 
     class << self
       def version
-        %q{1.2}
+        %q{1.4}
       end
     end
   end
