@@ -17,6 +17,12 @@
               <%= link_to category.title, blog_category_url(category) -%><%= ',' if index < ((categories.length) - 1) %>
           <% end %>
         </aside>
+        <aside class='filed_in'>
+          <%= t('blog.posts.show.tagged_with') %>
+          <% @blog_post.tags.each do |tag| %>
+              <%= link_to tag.name, tagged_posts_url(tag) -%> &nbsp;
+          <% end %>
+        </aside>
       <% end %>
     </details>
   </header>
