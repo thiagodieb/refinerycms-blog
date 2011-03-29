@@ -10,12 +10,6 @@ pt-BR:
           delete: Apagar esta categoria para sempre
         index:
           no_items_yet: 'Não há categorias ainda. Clique em "%{create}" para adicionar a primeira categoria.'
-      tags:
-        tag:
-          edit: Editar esta tag
-          delete: Apagar esta tag para sempre
-        index:
-          no_items_yet: 'There are no tags yet. Click "%{create}" to add your first tag.'
       comments:
         approved: 'O comentário de "%{author}" foi aprovado.'
         comment:
@@ -64,10 +58,6 @@ pt-BR:
           title: Categorias
           manage: Gerenciar
           new: Criar nova categoria
-        tags:
-          title: Tags
-          manage: Gerenciar
-          new: Criar nova tag
         comments:
           title: Comentários
           title_with_count: 'Comentários (%{new_count} novos)'
@@ -100,8 +90,6 @@ pt-BR:
     shared:
       categories:
         title: Categorias
-      tags:
-        title: Tags
       rss_feed:
         title: Feed RSS
         subscribe: Assinar
@@ -116,9 +104,6 @@ pt-BR:
     categories:
       show:
         no_posts: Não há posts aqui ainda.
-    tags:
-      show:
-        no_posts: Não há tags aqui ainda.
     posts:
       comment: commentário
       comments:
